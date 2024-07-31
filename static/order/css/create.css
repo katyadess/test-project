@@ -1,0 +1,12 @@
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+.profile-info div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+    gap: .5em;
+}

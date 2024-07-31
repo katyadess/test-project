@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+{% block css_links %}
+{% load static %}
+<link rel="stylesheet" href="{% static "blog/css/blog-create.css" %}">
+{% endblock css_links %}
+{% block content %}
+
+<div class="content">
+    <h1 class="page-header">Create Profile</h1>
+    <h4>Create profile to be able to create posts!</h4>
+    <form action="{% url "create_profile" %}" method='POST' enctype="multipart/form-data" style='margin-bottom: 2em' class='post-form'>
+        {% csrf_token %}
+        {{create_profile_form}}
+        <div class='btn'>
+            <button class='btn btn-default' type='submit'>Save</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script> $('#id_country').select2() </script>
+{% endblock scripts %}

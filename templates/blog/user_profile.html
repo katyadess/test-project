@@ -1,0 +1,61 @@
+{% extends "blog/base.html" %}
+{% block css_links %}
+{% load static %}
+<link rel="stylesheet" href="{% static "blog/css/blog-user_profile.css" %}">
+{% endblock css_links %}
+
+{% block content %}
+<h1 class="page-header">My Profile</h1>
+<div class="profile">
+    {% if profile.avatar %}
+        <img class="img-responsive" style='max-width: 200px' src="{{profile.avatar.url}}" alt="avatar">
+    {% else %}
+        <img class="img-responsive" style='max-width: 200px' src="https://i.sstatic.net/34AD2.jpg" alt="avatar">
+    {% endif %}
+    <div class="profile-info">
+        <p>{{profile.user.username}}</p>
+        <p>Country: <i class="bi bi-geo-alt-fill"></i> {{profile.country}}</p>
+        <p>{{profile.bio}}</p>
+        {% if request.user == profile.user %}
+            <button class='btn btn-primary'>
+                <a href="{% url "edit_user_profile" %}" style='color: white'>
+                    <i class="bi bi-pencil-square"></i> Edit Profile
+                </a>
+            </button>
+            <button type="submit" class='btn btn-danger'>
+                <a href="{% url "delete_user_profile" %}" style='color: white'>
+                    <i class="bi bi-trash-fill"></i> Delete Profile
+                </a>
+            </button>
+        {% endif %}
+    </div>
+</div>
+<hr>
+<h3>My Posts</h3>
+<div class="posts">
+    {% if posts %}
+        {% for post in posts %}
+            <li class="post">
+                <a href="{% url "post" id=post.pk %}">{{ post.title }}</a> - Posted on {{post.publish_date}}
+            </li>
+        {% endfor %}
+    {% else %}
+        <p>You have no posts yet.</p>
+    {% endif %}
+</div>
+{% if request.user == profile.user %}
+<h3>My Comments</h3>
+<div class="posts">
+    {% if comments %}
+        {% for comment in comments %}
+            <li class="post">
+                <a href="{% url "post" id=comment.post.pk %}#comment-{{ comment.pk }}">{{ comment.content }}</a> - Posted on {{comment.post}}
+            </li>
+        {% endfor %}  
+    {% else %}
+        <p>You have no comments yet.</p>
+    {% endif %}
+</div>
+{% endif %}
+
+{% endblock content %}

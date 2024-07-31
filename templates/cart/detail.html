@@ -1,0 +1,82 @@
+{% extends "shop/base.html" %}
+{% block css_links %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'cart/css/detail.css' %}">
+{% endblock css_links %}
+{% block title %}
+    My Shopping Cart
+{% endblock %}
+{% block content %}
+    <h1 class='title'>Shopping Cart</h1>
+    <div class="items">
+
+        {% for item in cart %}
+            {% with product=item.product %}
+            <div class="item">
+                <div class="img-container">
+                    <img class='item-img' src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+                </div>
+                <div class="info">
+                    <p>{{product.name}}</p>
+                    <form class="update-form" action="{% url 'cart:cart_details' %}" method="post">
+                        {% csrf_token %}
+                        <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="quantity-input">
+                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                    </form>
+                    <p>${{item.total_price}}</p>
+                    
+                </div>
+                <div class="remove">
+                    <a href="{% url "cart:cart_remove" product.id %}"><i class="bi bi-trash"></i></a>
+                </div>
+            </div>
+            {% if item.quantity >= product.stock and product.stock > 0 %}
+            <div class="max">
+                <p>Max quantity of {{product.name}} is {{product.stock}}</p>
+            </div>
+            {% elif product.stock == 0 %}
+            <div class="max">
+                <p>{{product.name}} is currently out of stock</p>
+            </div>
+            {% endif %}
+            {% endwith %}
+        {% endfor %}
+    </div>
+    <div class="total">
+        <h3>Total</h3>
+        <h3>${{cart.get_total_price}}</h3>
+    </div>
+
+    <div class="btn-wrapper">
+        {% if out_of_stock %}
+        <button class='button'>
+            <a href="{% url "cart:cart_details" %}">
+                Checkout
+            </a>
+        </button>
+        <p style="color: red;">Some items in your cart are out of stock.</p>
+        {% else %}
+        <button class='button'>
+            {% if user.is_authenticated %}
+                <a href="{% url 'orders:order_create' %}">Checkout</a>
+            {% else %}
+                <a href="{% url 'register' %}">Checkout</a>
+            {% endif %}
+        </button>
+        {% endif %} 
+    </div>
+    
+    <a href="{% url "shop:product_list" %}" class='shop'>Continue Shopping</a>  
+    
+    
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.querySelectorAll('.quantity-input').forEach(function(input) {
+        input.addEventListener('change', function() {
+            this.closest('form').submit();
+        });
+    });
+</script>
+{% endblock %}

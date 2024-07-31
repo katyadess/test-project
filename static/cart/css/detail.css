@@ -1,0 +1,107 @@
+.title {
+    padding: 1rem 2.5rem;
+    border-bottom: 1px solid rgb(219, 219, 219);
+}
+
+.total {
+    margin-top: 2rem;
+    width: 100%;
+    padding: 1rem 2.5rem;
+    border-top: 1px solid rgb(219, 219, 219);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.btn-wrapper, .shop, .register-form{
+    width: 100%;
+    padding: 0rem 2.5rem;
+    padding-bottom: 1rem;
+}
+
+.button {
+    width: 100%;
+    padding: 1em;
+    background-color: black;
+}
+
+.button a {
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+
+.items {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.max {
+    padding: .5rem 2.5rem;
+    color: red;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    gap: 3em;
+    width: 90%;
+    padding: 1rem 0rem;
+    border-bottom: 1px solid rgb(219, 219, 219);
+}
+
+.info {
+    display: flex;
+    align-items: baseline;
+    gap: 2em;
+    justify-content: space-between;
+}
+
+.info p {
+    margin: 0;
+}
+
+.img-container {
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.item-img {
+    width: auto; 
+    height: 100%; 
+    object-fit: cover; 
+}
+
+.remove {
+    margin-left: auto;
+}
+
+.remove a, .shop {
+    color: black;
+    text-decoration: none;
+}
+
+.remove a:hover, .shop:hover {
+    color: rgb(142, 142, 142);
+}
+
+.update-form input {
+   width: 45px;
+   border: none;
+}
+
+@media (max-width: 520px) {
+    .info {
+        display: flex;
+        flex-direction: column;
+        gap: 0em;
+    }
+}

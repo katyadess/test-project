@@ -1,0 +1,64 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+.section .uls {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+.form {
+    border: rgb(199, 199, 199) 1px solid;
+    width: 60%;
+}
+
+.form-heading {
+    margin-bottom: .8em;
+}
+
+.contact-form {
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.name, .email, .message {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form label, .contact-form strong, .contact-form button {
+    text-transform: uppercase;
+    letter-spacing: .6px;
+}
+
+.contact-form span {
+    color: gray;
+}
+
+.contact-form input, .contact-form textarea {
+    border: rgb(199, 199, 199) 1px solid;
+}
+
+.contact-form button {
+    border: none;
+    font-weight: 550;
+    background-color: black;
+    color: white;
+    border-radius: 3em;
+    font-size: 1.4rem;
+    padding: 1.2em 3em;
+}
+
+.content p {
+    font-size: 1.7rem;
+}
+
+

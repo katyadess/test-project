@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+{% block css_links %}
+{% load static %}
+<link rel="stylesheet" href="{% static "blog/css/blog-main.css" %}">
+<link rel="stylesheet" href="{% static "blog/css/blog-gallery.css" %}">
+{% endblock css_links %} 
+{% block content %}
+
+<h1 class="page-header">
+    Gallery
+</h1>
+
+<div class="images" style='margin-bottom: 2em'>
+  {% for img in photos %}
+    <img src="{{img.image.url}}" alt="{{img.description}}" class='img'>
+  {% endfor %}
+</div>
+
+
+{% endblock content %}

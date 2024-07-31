@@ -1,0 +1,44 @@
+{% extends "shop/base.html" %}
+
+{% block css_links %}
+{% load static %}
+<link rel="stylesheet" href="{% static "shop/css/main.css" %}">
+<link rel="stylesheet" href="{% static "blog/css/blog-register.css" %}">
+<link rel="stylesheet" href="{% static "shop/css/profile.css" %}">
+{% endblock css_links %} 
+{% block title %}
+    Profile
+{% endblock %}
+
+
+{% block content %}
+
+<div class="profile">
+
+    <h1>Settings</h1>
+    <form action="{% url "shop:shop_profile" %}" method='post' class='register-form'>
+        {% csrf_token %}
+    
+        <div>
+            {{ profile_form.email.label_tag }} {{ profile_form.email }}
+        </div>
+        <div>
+            {{ profile_form.first_name.label_tag }} {{ profile_form.first_name }}
+        </div>
+        <div>
+            {{ profile_form.last_name.label_tag }} {{ profile_form.last_name }}
+        </div>
+        <div>
+            {{ profile_form.username.label_tag }} {{ profile_form.username }}
+        </div>
+    
+        <p>To change password, click this <a href="{% url "change_password" %} " style='text-decoration: none'>Password Change Link</a></p>
+    
+        <div class='btn-wrapper'>
+            <button type='submit' class='btn btn-secondary'>Update Settings</button>
+        </div>
+    </form>
+</div>
+
+
+{% endblock content %}

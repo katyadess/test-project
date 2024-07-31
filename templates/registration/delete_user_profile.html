@@ -1,0 +1,40 @@
+{% extends "blog/base.html" %}
+{% block css_links %}
+{% load static %}
+<link rel="stylesheet" href="{% static "blog/css/blog-create.css" %}">
+<link rel="stylesheet" href="{% static "blog/css/blog-main.css" %}">
+<link rel="stylesheet" href="{% static "blog/css/blog-user_profile.css" %}">
+{% endblock css_links %}
+{% block content %}
+
+
+<h1 class="page-header">
+  Delete Profile
+</h1>
+
+<div class="content">
+
+    <p style='font-size: 20px'>Are you sure you want to delete your profile?</p>
+
+    <div class="profile">
+        {% if profile.avatar %}
+            <img class="img-responsive" style='max-width: 200px' src="{{profile.avatar.url}}" alt="avatar">
+        {% else %}
+            <img class="img-responsive" style='max-width: 200px' src="https://i.sstatic.net/34AD2.jpg" alt="avatar">
+        {% endif %}
+        <div class="profile-info">
+            <p>{{profile.user.username}}</p>
+            <p>Country: <i class="bi bi-geo-alt-fill"></i> {{profile.country}}</p>
+            <p>{{profile.bio}}</p>
+        </div>
+    </div>
+
+    <form action="{% url 'delete_user_profile' %}" method='POST' style='display: flex; align-items: center; justify-content: center; margin-bottom: 1em'>
+        {% csrf_token %}
+        <div class="btn">
+            <button type="submit" class='btn btn-danger'>Confirm Delete</button>
+        </div>
+        <a href="{% url 'user_profile' profile.user.username %}" class='btn btn-default'>Cancel</a>
+    </form>
+</div>
+{% endblock content %}

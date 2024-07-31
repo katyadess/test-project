@@ -1,0 +1,38 @@
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    margin: 2em 0;
+}
+
+.profile-info .info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+}
+
+
+.info div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info .key {
+    font-weight: 600;
+}
+
+.btn-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-wrapper .btn {
+    display: block;
+}
+
+
+
+.profile-info p {
+    font-size: 2rem;
+}

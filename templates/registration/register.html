@@ -1,0 +1,27 @@
+{% extends "blog/base.html" %}
+
+{% block css_links %}
+{% load static %}
+<link rel="stylesheet" href="{% static "blog/css/blog-register.css" %}">
+{% endblock css_links %}
+
+
+{% block content %}
+
+<h1 class="page-header">Registration</h1>
+<h3>Register first to be able to view user profiles, buy items in shop, leave comments and like posts!</h3>
+<p>If you already have account, click the button below</p>
+<button class='btn btn-success'>
+    <a href="{% url "blog_login" %}" style='color: white'>Login</a>
+</button>
+<form action="{% url "register" %}" method='post' class='register-form'>
+    {% csrf_token %}
+    {{user_registration}}
+    <div class="btn">
+        <button type='submit' class='btn btn-default'>Sign up</button>
+    </div>
+</form>
+
+{% endblock content %}
+
+

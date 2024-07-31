@@ -1,0 +1,31 @@
+{% extends "blog/base.html" %}
+{% block css_links %}
+{% load static %}
+<link rel="stylesheet" href="{% static "blog/css/blog-contacts.css" %}">
+{% endblock css_links %}
+{% block content %}
+<h1 class="page-header">
+    About Us
+</h1>
+
+<div class="content">
+
+    <div class="section">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia ducimus nesciunt delectus rerum laboriosam similique, dolorem at tempora, labore ipsam ipsa porro exercitationem omnis error asperiores sit dignissimos quidem magnam est debitis reprehenderit explicabo! Deleniti odit porro, sunt laudantium, cum sequi in officia fuga ut numquam totam quae adipisci tenetur nam minima beatae, inventore voluptatum expedita?</p>
+    </div>
+
+    <div class="section">
+        <h2>Our Services</h2>
+            <p>We offer a wide range of products and services tailored to meet your specific needs. You can read more <a href="{% url "services" %}">HERE</a>.</p>
+    </div>
+
+
+    <div class="section">
+        <h2>How To Contact Us?</h2>
+        <p>We are always here to help and would love to hear from you. For any inquiries, feedback, or support, please don't hesitate to reach out to us. You can find our contact information on our <a href="{% url 'contact' %}">Contact Page</a>. Our team is committed to providing timely and effective responses to ensure your satisfaction.</p>
+    
+        <p>Stay connected with us and stay up-to-date with the latest news and updates by following us on social media. We look forward to working with you and helping your business succeed.</p>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,50 @@
+{% extends "blog/base.html" %}
+{% block css_links %}
+{% load static %}
+<link rel="stylesheet" href="{% static "blog/css/blog-create.css" %}">
+<link rel="stylesheet" href="{% static "blog/css/blog-main.css" %}">
+{% endblock css_links %}
+{% block content %}
+
+
+<h1 class="page-header">
+  Delete Post
+</h1>
+
+<div class="content">
+
+    <p style='font-size: 20px'>Are you sure you want to delete this post?</p>
+
+    <h2>
+        <a href="{% url "post" id=post.pk %}">{{ post.title }}</a>
+    </h2>
+    <p class="lead">
+        by <a href="{% url "user_profile" post.user.user.username %}">{{post.user.user.username}}</a>
+    </p>
+    <p><span class="glyphicon glyphicon-time"></span> Posted on {{post.publish_date}}</p>
+    <hr>
+    {% if post.image %}
+        <img class="img-responsive" src="{{ post.image.url }}" alt="{{ post.title }}">
+    {% else %}
+        <img src="http://placehold.it/900x300" alt="{{ post.title }}" class="img-responsive">
+    {% endif %}
+    <hr>
+    <p>{{ post.content | truncatewords:20 }}</p>
+    <div class="tags">
+        <p>Tags</p>
+        <div class="tags-content">
+            {% for tag in post.tags.all %}
+            <p><a href="{% url 'tag' tag.name %}">{{tag.name}}</a></p>
+            {% endfor %}
+        </div>  
+    </div>
+
+    <form action="{% url 'delete_post' post.pk %}" method='POST' style='display: flex; align-items: center; justify-content: center; margin-bottom: 1em'>
+        {% csrf_token %}
+        <div class="btn">
+            <button type="submit" class='btn btn-danger'>Confirm Delete</button>
+        </div>
+        <a href="{% url 'post' post.pk %}" class='btn btn-default'>Cancel</a>
+    </form>
+</div>
+{% endblock content %}

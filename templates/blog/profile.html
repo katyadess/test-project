@@ -1,0 +1,68 @@
+{% extends "blog/base.html" %}
+{% block css_links %}
+{% load static %}
+<link rel="stylesheet" href="{% static "blog/css/blog-profile.css" %}">
+{% endblock css_links %}
+{% block content %}
+<h1 class="page-header">My Account</h1>
+
+<div class="profile-info">
+    <div class="info">
+        <div>
+            <p class="key">
+                E-mail
+            </p> 
+            <p class="value">
+                {{user.email}}
+            </p>
+        </div>
+        
+        <div>
+            <p class="key">
+                Username
+            </p> 
+            <p class="value">
+                {{user.username}}
+            </p>
+        </div>
+        <div>
+            <p class="key">
+                First Name
+            </p> 
+            <p class="value">
+                {{user.first_name}}
+            </p>
+        </div>
+        <div>
+            <p class="key">
+                Last Name
+            </p> 
+            <p class="value">
+                {{user.last_name}}
+            </p>
+        </div>  
+    </div>
+
+
+    <div class="btn-wrapper" style='display:flex !important, justify-content: center !important, align-items: center !important'>
+        <button class='btn btn-primary'>
+            <a href="{% url "edit" %}" style='color: white'><i class="bi bi-pencil-square"></i> Edit Account</a>
+        </button>
+    </div>
+    {% if user.profile.id %}
+        <div class="btn-wrapper" style='display:flex !important, justify-content: center !important, align-items: center !important'>
+            <button class='btn btn-success'>
+                <a href="{% url "user_profile" user.username %}" style='color: white'>My profile</a>
+            </button>
+        </div>                 
+    {% else %}                
+    <div class="btn-wrapper" style='display:flex !important, justify-content: center !important, align-items: center !important'>
+        <button class='btn btn-success'>
+            <a href="{% url "create_profile" %}" style='color: white'>Create Profile</a>
+        </button>
+    </div>
+    {% endif %}
+    
+</div>
+
+{% endblock content %}

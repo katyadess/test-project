@@ -1,0 +1,54 @@
+{% extends "shop/base.html" %}
+{% block css_links %}
+{% load static %}
+<link rel="stylesheet" href="{% static "shop/css/list.css" %}">
+<link rel="stylesheet" href="{% static "shop/css/detail.css" %}">
+{% endblock css_links %}
+{% block title %}
+    {% if category %}{{ category.title }}{% else %}Products{% endif %}
+{% endblock %}
+{% block content %}
+
+    <div class="path">
+        {% for breadcrumb in breadcrumbs %}
+            {% if breadcrumb.url %}
+                <a href="{{ breadcrumb.url }}">{{ breadcrumb.name }}</a> &gt;
+            {% else %}
+                {{ breadcrumb.name }}
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="prod-item">
+        <div class="item-name">
+            <h1 class='name'>{{ product.name }}</h1>
+        </div>
+        <div class="img-container">
+            <img class='item-img' src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+        </div>
+        <div class="info">
+            <div class="item-text">
+                <p class='desc'>
+                    {{ product.description }}
+                </p>
+
+                <div class="item-price">
+                    <p class="price">${{ product.price }}</p>
+                    {% if product.stock > 0 %}
+                        <form action="{% url "cart:cart_add" product.id %}" method='POST' class='form'>
+                            {% csrf_token %}
+                            <div class="quantity">
+                                {{cart_product_form}}
+                            </div>
+                            <button type='submit' class='btn btn-secondary'>Add to Cart</button>
+                        </form>
+                    {% else %}
+                    <span style='color: red'>Out of stock</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+{% endblock %}

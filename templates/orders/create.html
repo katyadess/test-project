@@ -1,0 +1,82 @@
+{% extends "shop/base.html" %}
+{% block css_links %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'cart/css/detail.css' %}">
+<link rel="stylesheet" href="{% static "order/css/create.css" %}">
+{% endblock css_links %}
+{% block title %}
+    Checkout
+{% endblock %}
+{% block content %}
+    <h1 class='title'>Your Order</h1>
+    <div class="items">
+
+        {% for item in cart %}
+            {% with product=item.product %}
+            <div class="item">
+                <div class="img-container">
+                    <img class='item-img' src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+                </div>
+                <div class="info">
+                    <p>{{product.name}}</p>
+                    <p>{{item.quantity}}</p>
+                    <p>${{item.total_price}}</p>
+                    
+                </div>
+                <div class="remove">
+                    <a href="{% url "cart:cart_remove" product.id %}"><i class="bi bi-trash"></i></a>
+                </div>
+            </div>
+            {% if item.quantity >= product.stock and product.stock > 0 %}
+            <div class="max">
+                <p>Max quantity of {{product.name}} is {{product.stock}}</p>
+            </div>
+            {% elif product.stock == 0 %}
+            <div class="max">
+                <p>{{product.name}} is currently out of stock</p>
+            </div>
+            {% endif %}
+            {% endwith %}
+        {% endfor %}
+    </div>
+    <div class="total">
+        <h3>Total</h3>
+        <h3>${{cart.get_total_price}}</h3>
+    </div>
+    <div class="profile">
+        <form action="." method='POST' class='register-form'>
+            {% csrf_token %}
+
+            {{ form.first_name }}
+            {{ form.last_name }}
+            {{ form.email }}
+
+            <div class="profile-info">
+                <div class="form-group">
+                    <label for="id_first_name">First Name:</label>
+                    <p>{{ form.initial.first_name }}</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_last_name">Last Name:</label>
+                    <p>{{ form.initial.last_name }}</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_email">Email:</label>
+                    <p>{{ form.initial.email }}</p>
+                </div>
+
+                <div class="form-group">
+                    {{ form.address.label_tag }}
+                    {{ form.address }}
+                </div>
+            </div>
+            <div>
+                <button class='button' style='color: white !important'>
+                    Place Order
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
