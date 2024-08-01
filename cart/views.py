@@ -28,15 +28,12 @@ def add(request, product_id):
 def cart_details(request):
     cart = Cart(request) 
     out_of_stock = False
+    invalid_quantity = False
     
     if request.method == 'POST':
         product_id = request.POST.get('product_id')
         product = Product.objects.get(id=product_id)
         quantity = int(request.POST.get('quantity'))
-
-        if quantity > product.stock:
-            return redirect('cart:cart_details')
-
         
         cart.add(product=product, quantity=quantity, update_quantity=True)
         return redirect('cart:cart_details')
@@ -44,8 +41,11 @@ def cart_details(request):
     for item in cart:
         if item['product'].stock == 0:
             out_of_stock = True
+            
+        if item['quantity'] > item['product'].stock:
+            invalid_quantity = True
     
-    return render(request, 'cart/detail.html', {'cart': cart, 'out_of_stock': out_of_stock})
+    return render(request, 'cart/detail.html', {'cart': cart, 'out_of_stock': out_of_stock, 'invalid_quantity': invalid_quantity})
 
 def remove(request, product_id):
     
