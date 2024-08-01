@@ -33,11 +33,6 @@ urlpatterns = [
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ]
 
-<<<<<<< HEAD
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + \
-    static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-=======
+
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
- 
->>>>>>> 5c356b138ab3fa0dec130df905297480995c1ff3
