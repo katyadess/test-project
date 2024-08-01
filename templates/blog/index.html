@@ -44,8 +44,6 @@
 <hr>
 {% if post.image %}
     <img class="img-responsive" src="{{ post.image.url }}" alt="{{ post.title }}">
-{% else %}
-    <img src="http://placehold.it/900x300" alt="{{ post.title }}" class="img-responsive">
 {% endif %}
 <hr>
 <p>{{ post.content | truncatewords:20 }}</p>

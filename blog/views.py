@@ -8,7 +8,7 @@ from django.utils.timezone import now
 from django.views import View
 from django.urls import reverse_lazy
 from django.contrib.auth import logout, login
-from django.contrib.auth.views import PasswordChangeView, PasswordResetDoneView
+from django.contrib.auth.views import PasswordChangeView, PasswordResetDoneView, LoginView
 from django.contrib import messages
 
 
@@ -234,6 +234,16 @@ class MyLogoutView(View):
      def get(self, request):
           logout(request)
           return redirect('index')
+
+class MyLoginView(LoginView):
+     template_name = 'registration/login.html'
+     success_url = reverse_lazy('index')
+     
+     def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['sign_up_form'] = SignUpForm()
+        context.update(get_category())
+        return context
      
 class MyPasswordChangeView(PasswordChangeView):
      template_name = 'registration/change_password.html'
