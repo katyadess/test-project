@@ -48,13 +48,19 @@
     </div>
 
     <div class="btn-wrapper">
-        {% if out_of_stock %}
+        {% if out_of_stock%}
         <button class='button'>
             <a href="{% url "cart:cart_details" %}">
                 Checkout
             </a>
         </button>
         <p style="color: red;">Some items in your cart are out of stock.</p>
+        {% elif invalid_quantity %}
+        <button class='button'>
+            <a href="{% url "cart:cart_details" %}">
+                Checkout
+            </a>
+        </button>
         {% else %}
         <button class='button'>
             {% if user.is_authenticated %}

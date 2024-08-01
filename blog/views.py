@@ -77,9 +77,10 @@ def search(request):
      paginator = Paginator(posts, 3)
      page_number = request.GET.get('page')
      page_obj = paginator.get_page(page_number)
-     context = {'posts': posts, 'sign_up_form': sign_up_form, 'page_obj': page_obj}
+     tags = Tag.objects.filter(posts__in=posts)
+     context = {'posts': posts, 'sign_up_form': sign_up_form, 'page_obj': page_obj, 'tags': tags,}
      context.update(get_category())
-     return render(request, 'blog/index.html', context)   
+     return render(request, 'blog/index.html', context)  
 
 @login_required
 def create_post(request):
