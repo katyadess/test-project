@@ -72,11 +72,14 @@ def index(request):
 
 def search(request):
      query = request.GET.get('query')
-     posts = Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query)).order_by('-publish_date')
+     posts = Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))
      sign_up_form = SignUpForm()
-     context = {'posts': posts, 'sign_up_form': sign_up_form}
+     paginator = Paginator(posts, 3)
+     page_number = request.GET.get('page')
+     page_obj = paginator.get_page(page_number)
+     context = {'posts': posts, 'sign_up_form': sign_up_form, 'page_obj': page_obj}
      context.update(get_category())
-     return render(request, 'blog/index.html', context)  
+     return render(request, 'blog/index.html', context)   
 
 @login_required
 def create_post(request):
